@@ -19,7 +19,8 @@ set deploy_source_dir=%arg_3%
 set service_name=%arg_4%
 
 set webapp_folder=%root_dir%\webapps
-set temp_folder=%root_dir%\work
+set work_folder=%root_dir%\work
+set temp_folder=%root_dir%\temp
 
 rem if path does not exist then exit
 if not exist %root_dir% goto WEB_PATH_NOT_FOUND
@@ -43,10 +44,14 @@ mkdir %bk_dir%
 rem remove temporary files
 echo.
 echo Removing temporary files...
-echo Removing %temp_folder%\Catalina\localhost...
-cd %temp_folder%
+echo Removing %work_folder%\Catalina\localhost...
+cd %work_folder%
 del /S /Q *
 rmdir /S /Q Catalina\localhost
+
+echo Removing %temp_folder%\...
+cd %temp_folder%
+del /S /Q *
 
 rem change path to Tiget folder
 rem backup existing war files
